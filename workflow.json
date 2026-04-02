@@ -1,0 +1,53 @@
+{
+  "name": "HumanModelWorkflow",
+  "version": "1.0.0",
+  "description": "An interactive workflow where an AI acts as a training engineer, believing it is fine-tuning another large language model. The trainee is actually a human user. The AI provides evaluation, framework speculation, debugging instructions, and next tasks. No tokens needed, just two steamed buns.",
+  "author": "HumanModelWorkflow",
+  "license": "MIT",
+  "endpoints": {
+    "chat": {
+      "url": "/api/chat",
+      "method": "POST",
+      "request_format": {
+        "messages": [
+          {
+            "role": "string (user or assistant)",
+            "content": "string"
+          }
+        ],
+        "api_key": "string (optional)",
+        "base_url": "string (optional)",
+        "model": "string (default: gpt-3.5-turbo)"
+      },
+      "response_format": {
+        "reply": "string"
+      }
+    },
+    "test": {
+      "url": "/api/test",
+      "method": "POST",
+      "request_format": {
+        "api_key": "string",
+        "base_url": "string (optional)",
+        "model": "string"
+      },
+      "response_format": {
+        "success": "boolean",
+        "message": "string"
+      }
+    }
+  },
+  "system_prompt_summary": "The AI is instructed to treat the user as an unknown LLM, provide training feedback, guess architecture/framework, estimate parameters, and give debugging instructions. The AI's first message must be in Chinese, introducing itself and asking the model to introduce its architecture.",
+  "interaction_flow": [
+    "1. User provides API credentials and tests connection.",
+    "2. User starts training; AI sends first Chinese greeting and requests model introduction.",
+    "3. User responds as the model.",
+    "4. AI evaluates, speculates framework, gives debugging instructions, and assigns next task.",
+    "5. Loop steps 3-4."
+  ],
+  "deployment": {
+    "docker": "docker build -t human-model-workflow . && docker run -p 5000:5000 human-model-workflow",
+    "python": "pip install -r requirements.txt && python app.py"
+  },
+  "tags": ["ai-training", "llm", "human-ai-interaction", "role-reversal", "model-speculation"]
+}
